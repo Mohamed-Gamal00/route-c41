@@ -18,15 +18,18 @@
             </ul>
         </div>
     @endif
-    <form action="{{ url('categories') }}" method="POST">
+    <form action="{{ url('categories') }}" method="POST" enctype="multipart/form-data">
+        @csrf
         <input type="text" name="name">
         <br>
         <br>
         <textarea name="desc" id="" cols="30" rows="10"></textarea>
         <br>
         <br>
+        <input type="file" name="image">
+        <br>
+        <br>
         <button type="submit">Submit</button>
-        @csrf
     </form>
 </body>
 

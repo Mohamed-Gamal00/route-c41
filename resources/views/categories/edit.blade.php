@@ -18,13 +18,19 @@
             </ul>
         </div>
     @endif
-    <form action="{{ url("categories/$category->id") }}" method="POST">
+    <form action="{{ url("categories/$category->id") }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <input type="text" value="{{$category->name}}" name="name">
         <br>
         <br>
         <textarea name="desc" id="" cols="30" rows="10">{{$category->desc}}</textarea>
+        <br>
+        <br>
+        <input type="file" name="image">
+        <br>
+        <br>
+        <img src="{{asset("storage/$category->image")}}" width="200" height="200" alt="dd">
         <br>
         <br>
         <button type="submit">Submit</button>

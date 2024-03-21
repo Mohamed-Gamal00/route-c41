@@ -29,7 +29,7 @@ Route::get('/todo/done/{id}',[todoController::class,'donestatus'])->name('done')
 Route::get('/todo/delete/{id}',[todoController::class,'deletedone'])->name('delete');
 
 //category
-Route::get('/categories', [categoryController::class, "all"])->name("all");
+Route::get('/categories', [categoryController::class, "all"])->name("categories");
 Route::get('/categories/show/{id}', [categoryController::class, "show"]);
 //insert
 Route::get('/categories/create', [categoryController::class, "create"]);

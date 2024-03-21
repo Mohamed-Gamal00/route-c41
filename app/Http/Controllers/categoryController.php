@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class categoryController extends Controller
 {
@@ -29,44 +30,60 @@ class categoryController extends Controller
     public function store(Request $request)
     {
         //    validation
-        $request->validate([
-            "name"=>"required|string",
-            "desc"=>"required|string",
+        $data = $request->validate([
+            "name" => "required|string",
+            "desc" => "required|string",
+            "image" => "required|image|mimes:png,jpg,jpeg",
         ]);
         //    insert
-        Category::create([
-            "name"=>$request->name,
-            "desc"=>$request->desc,
-        ]);
-        // session()->put("success","Data inserted successfuly");//مش بتتشال لو عملت ريلود
-        session()->flash("success","Data inserted successfuly");//  unset  بيتعملها
-        //    redirect
-        return redirect()->route('all');
-     }
 
-     public function edit($id) {
+        /*
+          insert imgae
+          rename->move->insert
+
+        */
+        $data['image'] = Storage::putFile("categories", $data['image']);
+        // dd($image);
+        Category::create($data);
+        // session()->put("success","Data inserted successfuly");//مش بتتشال لو عملت ريلود
+        session()->flash("success", "Data inserted successfuly"); //  unset  بيتعملها
+        //    redirect
+        return redirect()->route('categories');
+    }
+
+    public function edit($id)
+    {
         $category = Category::findOrFail($id);
-        return view('categories.edit',compact('category'));
-     }
-     public function update(Request $request , $id) {
+        return view('categories.edit', compact('category'));
+    }
+    public function update(Request $request, $id)
+    {
         //validate
         $data = $request->validate([
-            "name"=>"required|string",
-            "desc"=>"required|string",
+            "name" => "required|string",
+            "desc" => "required|string",
+            "image" => "image|mimes:png,jpg,jpeg",
         ]);
-
-        // $data = $request;
         //check
         $category = Category::findOrFail($id);
+        // unlink old image if exist
+        // move new image
+        if($request->has("image")){
+            Storage::delete($category->image); //unlink
+            $data['image'] =Storage::putFile("categories",$data['image']); //new image
+        }
 
         //update
         $category->update($data);
         return redirect(url("categories/show/$id"));
-     }
+    }
 
-     public function delete($id) {
+    public function delete($id)
+    {
         $category = Category::findOrFail($id);
+        Storage::delete($category->image); //unlink
+
         $category->delete();
         return redirect("categories");
-     }
+    }
 }

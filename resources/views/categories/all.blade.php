@@ -21,6 +21,7 @@
         <a href="{{ url('categories/create') }}">
             create
         </a>
+        <br>
         @foreach ($categories as $cat)
             <a href="{{ url("categories/show/$cat->id") }}">
                 {{ $cat->name }} <br />

@@ -80,4 +80,33 @@ Query Builder -> not create db
   protected $hidden = [ مش بتظهر لما اجي اعمل استدعاء ليها columnال ]
 
 
+
+
+
+  ---------------------------------------------------storages---------------------------------------
+  المكان اللي بخزن فيه الصور بتاعتي
+
+  putfile اسمها srorage لارافيل موفرة لنا ميثود بتسهل علينا رفع الصور لل
+
+  Storage::putFile("folder-name", $data['image']);
+  Storage::putFile("categories", $data['image']);
+
+  اللي عندي وعشان انقلها من ملف الاستوريدج  public  الصور عندي عشان اقدر ارفعها واشوفها لازم تكون في ملف ال
+  بستخدم الامر
+   php artisan storage:link
+   اللي بيعمل نسخة من الاستوريدج اللوكال
+
+   بس عشان الكلام ده يتم برضك لازم اعدل علي ملفات المشروع
+   .env من ملف ال
+   بحولها من
+   FILESYSTEM_DISK=local
+   ل
+   FILESYSTEM_DISK=public
+
+   config->filesystem ومن ملف ال
+   بحولها من
+   'default' => env('FILESYSTEM_DISK', 'local'),
+   ل
+   'default' => env('FILESYSTEM_DISK', 'public'),
+
 */
