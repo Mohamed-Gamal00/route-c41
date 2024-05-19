@@ -68,7 +68,7 @@ class categoryController extends Controller
         $category = Category::findOrFail($id);
         // unlink old image if exist
         // move new image
-        if($request->has("image")){
+        if($request->has("image") && $category->image){
             Storage::delete($category->image); //unlink
             $data['image'] =Storage::putFile("categories",$data['image']); //new image
         }
@@ -81,7 +81,9 @@ class categoryController extends Controller
     public function delete($id)
     {
         $category = Category::findOrFail($id);
-        Storage::delete($category->image); //unlink
+        if($category->image){
+            Storage::delete($category->image); //unlink
+        }
 
         $category->delete();
         return redirect("categories");

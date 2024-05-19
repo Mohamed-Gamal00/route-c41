@@ -64,6 +64,16 @@ Query Builder -> not create db
 
   3- make migrate     -> في الداتا بيز create  و يعمله  migrations عشان يرن ال
 
+  4- عندي table لو احتجت اني اعدل علي
+              php artisan make:migration update_in_name_table
+              $table->string("name",100); before edit
+              $table->string("name",255)->change(); after edit
+
+  5- عندي table لو احتجت اني اضيف  عمود جديد علي
+              php artisan make:migration update_to_tname_table
+              $table->string("column_name",255)
+
+
 
 
 -------------------------------------------------------------------------------------------------------

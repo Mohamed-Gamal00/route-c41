@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\categoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\todoController;
@@ -29,7 +30,7 @@ Route::get('/todo/done/{id}',[todoController::class,'donestatus'])->name('done')
 Route::get('/todo/delete/{id}',[todoController::class,'deletedone'])->name('delete');
 
 //category
-Route::get('/categories', [categoryController::class, "all"])->name("categories");
+Route::get('/', [categoryController::class, "all"])->name("categories");
 Route::get('/categories/show/{id}', [categoryController::class, "show"]);
 //insert
 Route::get('/categories/create', [categoryController::class, "create"]);
@@ -39,3 +40,17 @@ Route::get('/categories/edit/{id}', [categoryController::class, "edit"]);
 Route::put('/categories/{id}', [categoryController::class, "update"]);
 //delete
 Route::delete('/categories/{id}', [categoryController::class, "delete"]);
+
+
+
+//books
+Route::get('/books', [BookController::class, "all"])->name("books");
+Route::get('/books/show/{id}', [BookController::class, "show"]);
+//insert
+Route::get('/books/create', [BookController::class, "create"]);
+Route::post('/books', [BookController::class, 'store']);
+//edit
+Route::get('/books/edit/{id}', [BookController::class, "edit"]);
+Route::put('/books/{id}', [BookController::class, "update"]);
+//delete
+Route::delete('/books/{id}', [BookController::class, "delete"]);

@@ -16,4 +16,12 @@ class Category extends Model
     protected $fillable = [
         "name","desc","image"
     ];
+
+
+    // category
+    // Category has many book
+
+    public function books() {
+        return $this->hasMany(Book::class);
+    }
 }

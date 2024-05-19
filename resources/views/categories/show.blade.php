@@ -4,6 +4,9 @@
              {{ $category->desc }} <br />
         </li>
 </ul>
+@foreach ($category->books as $book )
+ book name: {{$book->name}}
+@endforeach
 <br>
 <img src="{{asset("storage/$category->image")}}" alt="dd">
 <br>
